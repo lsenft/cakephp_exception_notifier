@@ -1,8 +1,5 @@
 <?php
 class ExceptionNotifierErrorHandler extends ErrorHandler {
-    /*public static function handleException(Exception $exception) {
-        echo 'なんてこった！ ' . $exception->getMessage();
-    }*/
     
     public static function handleError($code, $description, $file = null, $line = null, $context = null) {
         /*if (error_reporting() === 0) {
