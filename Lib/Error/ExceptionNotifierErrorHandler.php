@@ -1,16 +1,21 @@
 <?php
 class ExceptionNotifierErrorHandler extends ErrorHandler {
-    
     public static function handleError($code, $description, $file = null, $line = null, $context = null) {
         /*if (error_reporting() === 0) {
             return false;
         }*/
+        $errorConf = Configure::read('Error');
+        if(!($errorConf['level'] & $code)){
+            return;
+        }
         
         parent::handleError($code, $description, $file, $line, $context);
         
+        $errorInfo = self::mapErrorCode($code);
+        
         try{
             $mail = new CakeEmail('error');
-            $text = self::_getText($description, $file, $line);
+            $text = self::_getText($errorInfo, $description, $file, $line, $context);
             $mail->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
@@ -18,14 +23,14 @@ class ExceptionNotifierErrorHandler extends ErrorHandler {
         }
     }
     
-    private static function _getText($description, $file, $line)
+    private static function _getText($errorInfo, $description, $file, $line, $context)
     {
         $params = Router::getRequest();
         $trace = Debugger::trace(array('start' => 2, 'format' => 'base'));
         $session = isset($_SESSION) ? $_SESSION : array();
 
         $msg = array(
-            $description,
+            $errorInfo[0] . ':' . $description,
             $file . '(' . $line . ')',
             '',
             '-------------------------------',
@@ -60,6 +65,13 @@ class ExceptionNotifierErrorHandler extends ErrorHandler {
             '-------------------------------',
             '',
             trim($trace),
+            '',
+            '-------------------------------',
+            'Context:',
+            '-------------------------------',
+            '',
+            trim(print_r($context, true)),
+            '',
             );
 
         return join("\n", $msg);
