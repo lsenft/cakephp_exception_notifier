@@ -1,4 +1,6 @@
 <?php
+App::uses('CakeEmail', 'Network/Email');
+
 class ExceptionNotifierErrorHandler extends ErrorHandler {
     public static function handleError($code, $description, $file = null, $line = null, $context = null) {
         /*if (error_reporting() === 0) {
