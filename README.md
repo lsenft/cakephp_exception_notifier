@@ -1,9 +1,13 @@
-h1. CakePHP Exception Notifier
+CakePHP Exception Notifier
+==========================
+
+[![Bake Status](https://secure.travis-ci.org/lsenft/cakephp_exception_notifier.png?branch=master)](http://travis-ci.org/lsenft/cakephp_exception_notifier)
 
 This is a CakePHP component. When an exception or a error occurs in your CakePHP application, this component sends you an email.
 This component is inspired by exception_notification (Ruby on Rails plugin), see <a href="http://github.com/rails/exception_notification">http://github.com/rails/exception_notification</a>.
 
-h2. Usage
+Usage
+-----
 
 First, put exception_notifier.php on app/controllers/components in your CakePHP application.
 Second, put <a href="http://hal456.net/qdmail/">qdmail.php</a> on app/controllers/components too because excpetion_notifier.php depends on qdmail.php.
@@ -31,9 +35,9 @@ This component is only run when DEBUG configuraton value is 0. If you want to ru
 $this->ExceptionNotifier->observe(true);
 </pre>
 
-h2. Configuration
 
-h3. Exception error configuration
+Exception error configuration
+-----------------------------
 
 In default configuration, this component observes exception, notice error, warning error, and fatal error.
 If you don't want to observe notice error and warning error, add the following code.
@@ -69,7 +73,8 @@ class AppController extends Controller
 }
 </pre>
 
-h3. Mail configuration
+Mail configuration
+----------------------
 
 If you use SMTP protocol when this component send exception mail, add the following code.
 
@@ -94,6 +99,7 @@ class AppController extends Controller
 </pre>
 
 
-h2. Copyright
+Copyright
+---------
 
 Copyright (c) 2009-2010 milk1000cc, released under the MIT license.
