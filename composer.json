@@ -1,0 +1,42 @@
+{
+    "name": "lsenft/cakephp_exception_notifier",
+    "description": "Exception Notifier Plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp"
+    ],
+    "homepage": "https://github.com/lsenft/cakephp_exception_notifier",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/lsenft/cakephp_exception_notifier/graphs/contributors",
+            "role": "Author"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/lsenft/cakephp_exception_notifier/issues",
+        "source": "https://github.com/lsenft/cakephp_exception_notifier"
+    },
+    "require": {
+        "cakephp/cakephp": ">=3.2.9 <4.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0",
+        "cakephp/cakephp-codesniffer": "^2.0"
+    },
+    "suggest": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "lsenft\\cakephp_exception_notifier\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "lsenft\\cakephp_exception_notifier\\Test\\": "tests",
+            "lsenft\\cakephp_exception_notifier\\Test\\Fixture\\": "tests"
+        }
+    }
+}
