@@ -1,15 +1,23 @@
 <?php
-App::uses('CakeEmail', 'Network/Email');
+namespace Cake\Error;
 
-class ExceptionNotifierErrorHandler extends ErrorHandler {
-    public static function handleError($code, $description, $file = null, $line = null, $context = null) {
-        /*if (error_reporting() === 0) {
-            return false;
-        }*/
-        $errorConf = Configure::read('Error');
-        if(!($errorConf['level'] & $code)){
-            return;
-        }
+use Cake\Core\Configure;
+use Cake\Error\ErrorHandler as CoreErrorHandler;
+use ErrorException;
+use Exception;
+
+class ExceptionNotifierErrorHandler extends CoreErrorHandler {
+    /**
+     * 
+     * @param type $code
+     * @param type $description
+     * @param type $file
+     * @param type $line
+     * @param type $context
+     * @return type
+     */    
+    public function handleError($code, $description, $file = null, $line = null, $context = null)
+        {
         
         parent::handleError($code, $description, $file, $line, $context);
         
@@ -18,6 +26,22 @@ class ExceptionNotifierErrorHandler extends ErrorHandler {
         try{
             $mail = new CakeEmail('error');
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
+            $mail->send($text);
+        } catch(Exception $e){
+            $message = $e->getMessage();
+            CakeLog::write(LOG_ERROR, $message);
+        }
+    }
+    
+    public function handleException(Exception $exception)
+    {
+        parent::handleException($exception);
+        
+        //$errorInfo = self::mapErrorCode($code);
+        
+        try{
+            $mail = new CakeEmail('error');
+            $text = self::_getText('$errorInfo', $exception->getMessage(), '$file', '$line', '$context');
             $mail->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
