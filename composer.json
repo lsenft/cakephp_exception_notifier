@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "lsenft\\cakephp_exception_notifier\\": "src"
+            "Lsenft\\CakephpExceptionNotifier\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "lsenft\\cakephp_exception_notifier\\Test\\": "tests",
-            "lsenft\\cakephp_exception_notifier\\Test\\Fixture\\": "tests"
+            "Lsenft\\CakephpExceptionNotifier\\Test\\": "tests",
+            "Lsenft\\CakephpExceptionNotifier\\Test\\Fixture\\": "tests"
         }
     }
 }
