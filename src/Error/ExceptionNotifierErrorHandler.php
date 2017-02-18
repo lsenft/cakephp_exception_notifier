@@ -1,5 +1,5 @@
 <?php
-namespace Cake\Error;
+namespace Lsenft\CakephpExceptionNotifier\Error;
 
 use Cake\Core\Configure;
 use Cake\Error\ErrorHandler as CoreErrorHandler;
@@ -17,7 +17,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
      * @return type
      */    
     public function handleError($code, $description, $file = null, $line = null, $context = null)
-        {
+    {
         
         parent::handleError($code, $description, $file, $line, $context);
         
@@ -32,6 +32,23 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
             CakeLog::write(LOG_ERROR, $message);
         }
     }
+    
+    public function handleFatalError($code, $description, $file, $line)
+    {        
+        parent::handleFatalError($code, $description, $file, $line, $context);
+        
+        $errorInfo = self::mapErrorCode($code);
+        
+        try{
+            $mail = new CakeEmail('error');
+            $text = self::_getText($errorInfo, $description, $file, $line, $context);
+            $mail->send($text);
+        } catch(Exception $e){
+            $message = $e->getMessage();
+            CakeLog::write(LOG_ERROR, $message);
+        }
+    }
+
     
     public function handleException(Exception $exception)
     {
