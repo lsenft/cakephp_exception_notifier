@@ -5,6 +5,7 @@ use Cake\Core\Configure;
 use Cake\Error\ErrorHandler as CoreErrorHandler;
 use ErrorException;
 use Exception;
+use Cake\Mailer\Email;
 
 class ExceptionNotifierErrorHandler extends CoreErrorHandler {
     /**
@@ -24,7 +25,10 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $mail = new CakeEmail('error');
+            $mail = new Email('error');
+            $email->setTo('to@example.com', 'To Example');
+            $email->addFrom('no-reply@itp.com.au', 'Exception Notifier');
+
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
             $mail->send($text);
         } catch(Exception $e){
@@ -40,7 +44,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $mail = new CakeEmail('error');
+            $mail = new Email('error');
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
             $mail->send($text);
         } catch(Exception $e){
@@ -57,7 +61,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         //$errorInfo = self::mapErrorCode($code);
         
         try{
-            $mail = new CakeEmail('error');
+            $mail = new Email('error');
             $text = self::_getText('$errorInfo', $exception->getMessage(), '$file', '$line', '$context');
             $mail->send($text);
         } catch(Exception $e){
