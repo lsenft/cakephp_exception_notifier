@@ -26,7 +26,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $email = new Email('error');
+            $email = new Email('ExceptionNotifier');
             $email->setTo('to@example.com', 'To Example');
             $email->addFrom('no-reply@itp.com.au', 'Exception Notifier');
 
@@ -45,7 +45,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $email = new Email('error');
+            $email = new Email('ExceptionNotifier');
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
             $email->send($text);
         } catch(Exception $e){
@@ -62,7 +62,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         //$errorInfo = self::mapErrorCode($code);
         
         try{
-            $email = new Email('error');
+            $email = new Email('ExceptionNotifier');
             $text = self::_getText('$errorInfo', $exception->getMessage(), '$file', '$line', '$context');
             $email->send($text);
         } catch(Exception $e){

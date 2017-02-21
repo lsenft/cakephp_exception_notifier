@@ -38,6 +38,20 @@ Add plugin to cake project
 $ bin/cake plugin load lsenft/cakephp_exception_notifier
 ```
 
+Configuration
+-------------
+
+Add the "ExcetptionNotifier" section to your email CakePHP application configuration in config/app.php.
+
+```PHP
+'Email' => [
+    'ExceptionNotifier' => [
+        'transport' => 'default',
+        'from' => 'no-reply@example.com'
+    ]
+]
+```
+
 Usage
 -----
 
