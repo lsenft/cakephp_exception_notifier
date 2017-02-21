@@ -27,8 +27,8 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         
         try{
             $email = new Email('ExceptionNotifier');
-            $email->setTo('to@example.com', 'To Example');
-            $email->addFrom('no-reply@itp.com.au', 'Exception Notifier');
+            // $email->setTo('to@example.com', 'To Example');
+            // $email->addFrom('no-reply@itp.com.au', 'Exception Notifier');
 
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
             $email->send($text);
