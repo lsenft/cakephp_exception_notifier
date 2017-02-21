@@ -26,15 +26,15 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $mail = new Email('error');
+            $email = new Email('error');
             $email->setTo('to@example.com', 'To Example');
             $email->addFrom('no-reply@itp.com.au', 'Exception Notifier');
 
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
-            $mail->send($text);
+            $email->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
-            Log::write($message);
+            Log::write($message, ['ExceptionNotifier']);
         }
     }
     
@@ -45,12 +45,12 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $mail = new Email('error');
+            $email = new Email('error');
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
-            $mail->send($text);
+            $email->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
-            Log::write($message);
+            Log::write($message, ['ExceptionNotifier']);
         }
     }
 
@@ -62,12 +62,12 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         //$errorInfo = self::mapErrorCode($code);
         
         try{
-            $mail = new Email('error');
+            $email = new Email('error');
             $text = self::_getText('$errorInfo', $exception->getMessage(), '$file', '$line', '$context');
-            $mail->send($text);
+            $email->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
-            Log::write($message);
+            Log::write($message, ['ExceptionNotifier']);
         }
     }
     
