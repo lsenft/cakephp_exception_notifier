@@ -6,6 +6,7 @@ use Cake\Error\ErrorHandler as CoreErrorHandler;
 use ErrorException;
 use Exception;
 use Cake\Mailer\Email;
+use Cake\Log\Log;
 
 class ExceptionNotifierErrorHandler extends CoreErrorHandler {
     /**
@@ -33,7 +34,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
             $mail->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
-            CakeLog::write(LOG_ERROR, $message);
+            Log::write($message);
         }
     }
     
@@ -49,7 +50,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
             $mail->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
-            CakeLog::write(LOG_ERROR, $message);
+            Log::write($message);
         }
     }
 
@@ -66,7 +67,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
             $mail->send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
-            CakeLog::write(LOG_ERROR, $message);
+            Log::write($message);
         }
     }
     
