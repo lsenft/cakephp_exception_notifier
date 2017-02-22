@@ -7,6 +7,7 @@ use ErrorException;
 use Exception;
 use Cake\Mailer\Email;
 use Cake\Log\Log;
+use Cake\Error\Debugger;
 
 class ExceptionNotifierErrorHandler extends CoreErrorHandler {
     /**
@@ -73,7 +74,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
     
     private static function _getText($errorInfo, $description, $file, $line, $context)
     {
-        $params = Router::getRequest();
+        $params = $_REQUEST;
         $trace = Debugger::trace(array('start' => 2, 'format' => 'base'));
         $session = isset($_SESSION) ? $_SESSION : array();
 
