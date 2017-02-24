@@ -27,12 +27,8 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $email = new Email('ExceptionNotifier');
-            // $email->setTo('to@example.com', 'To Example');
-            // $email->addFrom('no-reply@itp.com.au', 'Exception Notifier');
-
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
-            $email->send($text);
+            self::send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
             Log::write($message, ['ExceptionNotifier']);
@@ -46,9 +42,8 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         $errorInfo = self::mapErrorCode($code);
         
         try{
-            $email = new Email('ExceptionNotifier');
             $text = self::_getText($errorInfo, $description, $file, $line, $context);
-            $email->send($text);
+            self::send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
             Log::write($message, ['ExceptionNotifier']);
@@ -63,9 +58,8 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         //$errorInfo = self::mapErrorCode($code);
         
         try{
-            $email = new Email('ExceptionNotifier');
             $text = self::_getText('$errorInfo', $exception->getMessage(), '$file', '$line', '$context');
-            $email->send($text);
+            self::send($text);
         } catch(Exception $e){
             $message = $e->getMessage();
             Log::write($message, ['ExceptionNotifier']);
@@ -134,5 +128,15 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         
         $protocol = array_key_exists('HTTPS', $_SERVER) ? 'https' : 'http';
         return $protocol . '://' . env('HTTP_HOST') . env('REQUEST_URI');
+    }   
+    
+    private static function send($text)
+    {
+        if (!empty(getenv('TRAVIS'))) {
+            echo "\n\n" . $text . "\n\n";
+        }  else {
+            $email = new Email('ExceptionNotifier');
+            $email->send($text);
+        }
     }
 }
