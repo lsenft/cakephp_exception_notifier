@@ -8,6 +8,7 @@ use Exception;
 use Cake\Mailer\Email;
 use Cake\Log\Log;
 use Cake\Error\Debugger;
+use Lsenft\CakephpExceptionNotifier\Utility\Laxative;
 
 class ExceptionNotifierErrorHandler extends CoreErrorHandler {
     /**
@@ -82,26 +83,26 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
             '',
             '* URL       : ' . self::_getUrl(),
             '* IP address: ' . env('REMOTE_ADDR'),
-            '* Parameters: ' . var_export($params, true),
+            '* Parameters: ' . Laxative::dump($params),
             '* Cake root : ' . APP,
             '',
             '-------------------------------',
             'Environment:',
             '-------------------------------',
             '',
-            var_export($_SERVER, true),
+            Laxative::dump($_SERVER),
             '',
             '-------------------------------',
             'Session:',
             '-------------------------------',
             '',
-            var_export($session, true),
+            Laxative::dump($session),
             '',
             '-------------------------------',
             'Cookie:',
             '-------------------------------',
             '',
-            var_export($_COOKIE, true),
+            Laxative::dump($_COOKIE),
             '',
             '-------------------------------',
             'Backtrace:',
@@ -113,7 +114,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
             'Context:',
             '-------------------------------',
             '',
-            var_export($context, true),
+            Laxative::dump($context),
             '',
             );
 
