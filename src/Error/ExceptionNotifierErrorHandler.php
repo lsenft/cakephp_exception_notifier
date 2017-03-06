@@ -36,7 +36,7 @@ class ExceptionNotifierErrorHandler extends CoreErrorHandler {
         }
     }
     
-    public function handleFatalError($code, $description, $file, $line)
+    public function handleFatalError($code, $description, $file = null, $line = null, $context = null)
     {        
         parent::handleFatalError($code, $description, $file, $line, $context);
         
